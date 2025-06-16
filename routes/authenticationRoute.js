@@ -1,9 +1,9 @@
 const express = require("express");
-const { registerUser, loginUser, deleteUser } = require("../controllers/userAuthentication.jsx");
+const { registerUser, loginUser, deleteUser } = require("../controllers/userAuthentication.js");
 const handleEmailLinkClick = require("../middleware/handleEmailLinkClick.jsx");
-const { handleForgotPasswordClick, changePassword } = require("../controllers/password.jsx");
-const isTokenvalid = require("../controllers/isTokenValid.jsx");
-const resendEmailVerification = require("../controllers/resendEmailVerification.jsx");
+const { handleForgotPasswordClick, changePassword } = require("../controllers/password.js");
+const isTokenvalid = require("../controllers/isTokenValid.js");
+const resendEmailVerification = require("../controllers/resendEmailVerification.js");
 const { checkIfUserIsAnAdminMiddleware } = require("../middleware/adminAuthorisation.jsx");
 
 const router = express.Router();
