@@ -9,20 +9,8 @@ const checkEmailHost = (email) => {
 
   switch (provider) {
     case "gmail.com":
-      host = "smtp.gmail.com";
+      host = "mahatoavash90@gmail.com";
       break;
-    // case "yahoo.com":
-    //   host = "smtp.mail.yahoo.com";
-    //   break;
-    // case "outlook.com":
-    //   host = "smtp-mail.outlook.com";
-    //   break;
-    // case "zoho.com":
-    //   host = "smtp.zoho.com";
-    //   break;
-    // case "aol.com":
-    //   host = "smtp.aol.com";
-    //   break;
     default:
       host = null;
   }
@@ -43,7 +31,7 @@ const sendMessageToUserEmail = async (email, verificationToken, messageData) => 
 
   await transporter.sendMail(
     {
-      from: "Auffur" + " <" + user + ">",
+      from: "Furni" + " <" + user + ">",
       to: email,
       subject: subject,
       text: text,

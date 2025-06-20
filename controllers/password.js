@@ -10,10 +10,10 @@ const resetPasswordMessageData = (passwordVerificationToken) => {
   return {
     port: 587,
     secure: false,
-    user: "avashmahato@gmail.com",
+    user: "avashmahato90@gmail.com",
     pass: "Abc@12345",
-    subject: "[Auffur] Password Reset Request",
-    text: `We received a request to reset your password for your <b>Auffur</b> account.  If you made this request, please click the link below to reset your password or  paste the link in your browser to verify your email address: ${serverUrl}/api/v1/auth/resetPasswordLink/password-reset?token=${passwordVerificationToken} If you did not make this request, you can safely ignore this email. Your password will not be reset and your account will remain secure.   `,
+    subject: "[Furni] Password Reset Request",
+    text: `We received a request to reset your password for your <b>furni</b> account.  If you made this request, please click the link below to reset your password or  paste the link in your browser to verify your email address: ${serverUrl}/api/v1/auth/resetPasswordLink/password-reset?token=${passwordVerificationToken} If you did not make this request, you can safely ignore this email. Your password will not be reset and your account will remain secure.   `,
     html: `<h2>Password Reset Request</h2><br/><div>We received a request to reset your password for your <b>Auffur </b> account. If you made this request, please click the link below to reset your password:</div><br/> <a href="${serverUrl}/api/v1/auth/resetPasswordLink/password-reset?token=${passwordVerificationToken}" style="display: inline-block; padding: 0.5em 1em; background-color: #fca311; color: white; text-decoration: none;">reset now</a> <br /> <br /> <br /> <div>This link will expire in 1 hour.If you did not make this request, you can safely ignore this email,your password will not be reset and your account will remain secure.
 </div> <br /> <span>Thanks,</span> <br /> <span>Auffur Team</span>`,
   };
