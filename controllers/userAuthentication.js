@@ -26,34 +26,69 @@ const emailVerificationMessageDatas = (emailVerificationToken) => {
   };
 };
 
-//Register
-const registerUser = async (req, res) => {
-  const { username, password } = req.body;
-  const email = req.body?.email?.toLowerCase();
+// //Register
+// const registerUser = async (req, res) => {
+//   const { username, password } = req.body;
+//   const email = req.body?.email?.toLowerCase();
 
-  let checkIfEmailExists = await User.findOne({ email });
-  let token = generateToken(email, "pending", "5d");
-  const hashedpassword = await bcryptjs.hash(password, 10);
+//   let checkIfEmailExists = await User.findOne({ email });
+//   let token = generateToken(email, "pending", "5d");
+//   const hashedpassword = await bcryptjs.hash(password, 10);
 
-  if (checkIfEmailExists) {
-    throw new CustomErrorHandler(400, "Email has already been registered by another user");
-  } else if (!checkEmailHost(email)) {
-    throw new CustomErrorHandler(400, "Email host not supported");
+//   if (checkIfEmailExists) {
+//     throw new CustomErrorHandler(400, "Email has already been registered by another user");
+//   } else if (!checkEmailHost(email)) {
+//     throw new CustomErrorHandler(400, "Email host not supported");
+//   }
+//   await User.create({
+//     email,
+//     username,
+//     password: hashedpassword,
+//     verificationStatus: "pending",
+//     verificationToken: token,
+//   });
+
+//   const response = await sendMessageToUserEmail(email, token, emailVerificationMessageDatas);
+
+//   res.send(
+//     "Your account has been created! A verification link has been sent to your email. Please check your email to complete your registration."
+//   );
+// };
+
+const registerUser = async (req, res, next) => {
+  try {
+    const { username, password } = req.body;
+    const email = req.body?.email?.toLowerCase();
+
+    let checkIfEmailExists = await User.findOne({ email });
+    let token = generateToken(email, "pending", "5d");
+    const hashedpassword = await bcryptjs.hash(password, 10);
+
+    if (checkIfEmailExists) {
+      throw new CustomErrorHandler(400, "Email has already been registered by another user");
+    } else if (!checkEmailHost(email)) {
+      throw new CustomErrorHandler(400, "Email host not supported");
+    }
+
+    await User.create({
+      email,
+      username,
+      password: hashedpassword,
+      verificationStatus: "pending",
+      verificationToken: token,
+    });
+
+    const response = await sendMessageToUserEmail(email, token, emailVerificationMessageDatas);
+
+    res.send(
+      "Your account has been created! A verification link has been sent to your email. Please check your email to complete your registration."
+    );
+  } catch (error) {
+    console.error("❌ Registration Error:", error); // ← This logs the real issue
+    res.status(500).json({ message: "Internal server error", error: error.message });
   }
-  await User.create({
-    email,
-    username,
-    password: hashedpassword,
-    verificationStatus: "pending",
-    verificationToken: token,
-  });
-
-  const response = await sendMessageToUserEmail(email, token, emailVerificationMessageDatas);
-
-  res.send(
-    "Your account has been created! A verification link has been sent to your email. Please check your email to complete your registration."
-  );
 };
+
 
 //LOGIN
 const loginUser = async (req, res) => {

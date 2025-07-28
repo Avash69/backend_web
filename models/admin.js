@@ -10,7 +10,7 @@ const adminSchema = new mongoose.Schema(
     },
     adminRank: {
       type: Number,
-      required: [true, "pls choose a rank"],
+      required: [true, "please choose a rank"],
       enums: [1, 2, 3],
     },
     lastLogin: { type: Date },
